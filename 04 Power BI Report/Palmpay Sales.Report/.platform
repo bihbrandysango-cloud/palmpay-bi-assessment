@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Palmpay Sales"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "194cb3c7-2f24-426c-881f-2d10a565a8a4"
+  }
+}

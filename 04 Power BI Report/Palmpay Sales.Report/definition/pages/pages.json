@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
+  "pageOrder": [
+    "fed886b79e0f94ad156c",
+    "a1modernpreview0001",
+    "620cea71aaf1cc737409",
+    "4cf5296181dc5bccd791",
+    "sm_crisis",
+    "f6b6ab1be3db6bb05e39",
+    "21c5d1c6a7e00105d9c7",
+    "ee7c037567d6077fbe3e",
+    "dt_city",
+    "dt_product",
+    "kf_findings",
+    "7a62c01eb062b757c55e"
+  ],
+  "activePageName": "a1modernpreview0001"
+}

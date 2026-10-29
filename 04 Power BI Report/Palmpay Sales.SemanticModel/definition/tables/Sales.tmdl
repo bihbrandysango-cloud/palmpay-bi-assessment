@@ -1,0 +1,610 @@
+table Sales
+	lineageTag: eed7b79c-d3da-44a8-89c7-4b5bd3973d71
+
+	measure 'Total Sales Revenue' = SUM(Sales[Revenue USD])
+		lineageTag: c1aac00a-8d1f-43ee-8129-0a58a2e40421
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales Revenue PY' = CALCULATE(Sales[Total Sales Revenue], SAMEPERIODLASTYEAR(DateTable[Date]))
+		lineageTag: 8975349f-965b-4c3a-b662-9de1fb649e11
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Sales % Change YOY' = DIVIDE([Total Sales Revenue] - [Sales Revenue PY],[Sales Revenue PY])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 3b2b6ca5-6557-4a1e-9947-6a969ca98e5c
+
+	measure TotalQuantity = SUM(Sales[SalesQuantity])
+		formatString: 0
+		lineageTag: ac76b618-acc6-4e42-a465-e7639330e635
+
+	measure MinQuantityPerYear = CALCULATE(MINX(VALUES(Sales[Product]), [TotalQuantity]), ALLEXCEPT(Sales, Sales[Year]))
+		formatString: 0
+		lineageTag: 943ab7fa-8090-4bf7-9ad5-30104d870f23
+
+	measure TotalRevenue = SUM(Sales[Revenue])
+		lineageTag: 5891ca53-595b-49b3-810f-ba2b39699d94
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure TotalSales2011 = ```
+			CALCULATE([TotalQuantity], Sales[Year] = 2011)
+			
+			```
+		formatString: 0
+		lineageTag: 9c8e66ce-252e-4c07-b704-87d09bf59380
+
+	measure SalesPctByCity = ```
+			
+			DIVIDE(
+			    CALCULATE([TotalQuantity], Sales[Year] = 2011),
+			    CALCULATE([TotalQuantity], ALL(Sales[City]), Sales[Year] = 2011),
+			    0
+			)
+			
+			```
+		lineageTag: 9da166de-af8f-4883-9467-c26dc7d4e06c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AverageSalesPct = ```
+			
+			AVERAGEX(
+			    VALUES(Sales[City]),
+			    CALCULATE([SalesPctByCity], Sales[Year] = 2011)
+			)
+			
+			```
+		lineageTag: 86104f21-4853-49fa-a092-83fe7961cabf
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure DiffFromAverage = ```
+			[SalesPctByCity] - [AverageSalesPct]
+			
+			```
+		lineageTag: 5396eb3c-46c5-4df7-892b-a825ea99b9ae
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue (USD)' = SUM(Sales[Revenue USD])
+		formatString: "$"#,0
+		displayFolder: Modern KPIs
+		lineageTag: 2edc4241-b051-4235-a100-180e3b37162e
+
+	measure 'Gross Profit (USD)' = SUM(Sales[Revenue USD]) - SUM(Sales[Cogm USD])
+		formatString: "$"#,0
+		displayFolder: Modern KPIs
+		lineageTag: 87434ce2-e8be-4197-8d9c-b3beb1b58f9f
+
+	measure 'Gross Margin %' = DIVIDE([Gross Profit (USD)], [Revenue (USD)])
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Modern KPIs
+		lineageTag: e8f9520d-dfbd-4199-a22c-2d5c85f37804
+
+	measure 'Revenue Sparkline' =
+			VAR _last = MAX ( Sales[Date] )
+			VAR _start = DATE ( YEAR ( _last ), MONTH ( _last ) - 11, 1 )
+			VAR _w = 240
+			VAR _h = 34
+			VAR _months =
+			    ADDCOLUMNS (
+			        GENERATESERIES ( 0, 11, 1 ),
+			        "@v",
+			            VAR _s = EDATE ( _start, [Value] )
+			            VAR _e = EOMONTH ( _s, 0 )
+			            RETURN
+			                CALCULATE (
+			                    [Revenue (USD)],
+			                    REMOVEFILTERS ( Sales[Date], Sales[YEAR], Sales[MONTH], Sales[DAY] ),
+			                    Sales[Date] >= _s,
+			                    Sales[Date] <= _e
+			                ) + 0
+			    )
+			VAR _min = MINX ( _months, [@v] )
+			VAR _max = MAXX ( _months, [@v] )
+			VAR _pts =
+			    CONCATENATEX (
+			        _months,
+			        FORMAT ( 4 + [Value] * ( _w - 8 ) / 11, "0" ) & ","
+			            & FORMAT ( _h - 6 - DIVIDE ( [@v] - _min, _max - _min ) * ( _h - 12 ), "0" ),
+			        " ",
+			        [Value], ASC
+			    )
+			VAR _lastY = FORMAT ( _h - 6 - DIVIDE ( MAXX ( FILTER ( _months, [Value] = 11 ), [@v] ) - _min, _max - _min ) * ( _h - 12 ), "0" )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( _last ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='" & _w & "' height='" & _h & "'>"
+			            & "<polygon points='4," & _h & " " & _pts & " " & ( _w - 4 ) & "," & _h & "' fill='%237031C5' fill-opacity='0.12'/>"
+			            & "<polyline points='" & _pts & "' fill='none' stroke='%237031C5' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/>"
+			            & "<circle cx='" & ( _w - 4 ) & "' cy='" & _lastY & "' r='3.5' fill='%23EC5A96'/>"
+			            & "</svg>"
+			    )
+		displayFolder: Modern KPIs
+		lineageTag: 0fa874db-4dc2-4480-9242-4a72399dfdc6
+		dataCategory: ImageUrl
+
+	measure 'Gross Profit Sparkline' =
+			VAR _last = MAX ( Sales[Date] )
+			VAR _start = DATE ( YEAR ( _last ), MONTH ( _last ) - 11, 1 )
+			VAR _w = 240
+			VAR _h = 34
+			VAR _months =
+			    ADDCOLUMNS (
+			        GENERATESERIES ( 0, 11, 1 ),
+			        "@v",
+			            VAR _s = EDATE ( _start, [Value] )
+			            VAR _e = EOMONTH ( _s, 0 )
+			            RETURN
+			                CALCULATE (
+			                    [Gross Profit (USD)],
+			                    REMOVEFILTERS ( Sales[Date], Sales[YEAR], Sales[MONTH], Sales[DAY] ),
+			                    Sales[Date] >= _s,
+			                    Sales[Date] <= _e
+			                ) + 0
+			    )
+			VAR _min = MINX ( _months, [@v] )
+			VAR _max = MAXX ( _months, [@v] )
+			VAR _pts =
+			    CONCATENATEX (
+			        _months,
+			        FORMAT ( 4 + [Value] * ( _w - 8 ) / 11, "0" ) & ","
+			            & FORMAT ( _h - 6 - DIVIDE ( [@v] - _min, _max - _min ) * ( _h - 12 ), "0" ),
+			        " ",
+			        [Value], ASC
+			    )
+			VAR _lastY = FORMAT ( _h - 6 - DIVIDE ( MAXX ( FILTER ( _months, [Value] = 11 ), [@v] ) - _min, _max - _min ) * ( _h - 12 ), "0" )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( _last ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='" & _w & "' height='" & _h & "'>"
+			            & "<polygon points='4," & _h & " " & _pts & " " & ( _w - 4 ) & "," & _h & "' fill='%237031C5' fill-opacity='0.12'/>"
+			            & "<polyline points='" & _pts & "' fill='none' stroke='%237031C5' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/>"
+			            & "<circle cx='" & ( _w - 4 ) & "' cy='" & _lastY & "' r='3.5' fill='%23EC5A96'/>"
+			            & "</svg>"
+			    )
+		displayFolder: Modern KPIs
+		lineageTag: d08e546a-71d7-4052-9da7-8dff8a67ecb6
+		dataCategory: ImageUrl
+
+	measure 'Units Sparkline' =
+			VAR _last = MAX ( Sales[Date] )
+			VAR _start = DATE ( YEAR ( _last ), MONTH ( _last ) - 11, 1 )
+			VAR _w = 240
+			VAR _h = 34
+			VAR _months =
+			    ADDCOLUMNS (
+			        GENERATESERIES ( 0, 11, 1 ),
+			        "@v",
+			            VAR _s = EDATE ( _start, [Value] )
+			            VAR _e = EOMONTH ( _s, 0 )
+			            RETURN
+			                CALCULATE (
+			                    [TotalQuantity],
+			                    REMOVEFILTERS ( Sales[Date], Sales[YEAR], Sales[MONTH], Sales[DAY] ),
+			                    Sales[Date] >= _s,
+			                    Sales[Date] <= _e
+			                ) + 0
+			    )
+			VAR _min = MINX ( _months, [@v] )
+			VAR _max = MAXX ( _months, [@v] )
+			VAR _pts =
+			    CONCATENATEX (
+			        _months,
+			        FORMAT ( 4 + [Value] * ( _w - 8 ) / 11, "0" ) & ","
+			            & FORMAT ( _h - 6 - DIVIDE ( [@v] - _min, _max - _min ) * ( _h - 12 ), "0" ),
+			        " ",
+			        [Value], ASC
+			    )
+			VAR _lastY = FORMAT ( _h - 6 - DIVIDE ( MAXX ( FILTER ( _months, [Value] = 11 ), [@v] ) - _min, _max - _min ) * ( _h - 12 ), "0" )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( _last ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='" & _w & "' height='" & _h & "'>"
+			            & "<polygon points='4," & _h & " " & _pts & " " & ( _w - 4 ) & "," & _h & "' fill='%237031C5' fill-opacity='0.12'/>"
+			            & "<polyline points='" & _pts & "' fill='none' stroke='%237031C5' stroke-width='2.5' stroke-linejoin='round' stroke-linecap='round'/>"
+			            & "<circle cx='" & ( _w - 4 ) & "' cy='" & _lastY & "' r='3.5' fill='%23EC5A96'/>"
+			            & "</svg>"
+			    )
+		displayFolder: Modern KPIs
+		lineageTag: e1775a4c-356d-4c71-8c94-3df85ed8a040
+		dataCategory: ImageUrl
+
+	measure 'Year Label' = VAR _min = MIN ( Sales[YEAR] ) VAR _max = MAX ( Sales[YEAR] ) RETURN IF ( ISBLANK ( _min ), "", IF ( _min = _max, FORMAT ( _min, "0" ), FORMAT ( _min, "0" ) & " to " & FORMAT ( _max, "0" ) ) )
+		displayFolder: Report Titles
+		lineageTag: 8e96d866-90f2-40cd-bb7d-1fc74272631a
+
+	measure 'Title Scatter' = "Revenue vs Gross Margin by City, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 04037eeb-2b84-4502-b033-0c79aac25dd9
+
+	measure 'Title Top Products' = "Top 10 Products by Units Sold, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 702bf8f6-c149-48de-8f9e-15074e35dce0
+
+	measure 'Title Top Category' = "Top Product Category by Revenue (USD), " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: f4cfb4af-2e92-4c02-a7e7-2c5a3906c735
+
+	measure 'Title Slowest Product' = "Slowest-Selling Product by Units, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 3a6431dd-1dfa-4e11-b280-b443dc0527d6
+
+	measure 'Title Seasonality' = "Monthly Revenue (USD) by Product, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 2b7845e8-2264-4468-bbcb-826210eef779
+
+	measure 'Title YoY' = "Monthly Sales Change vs Previous Year (%), " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: f15616f8-1c53-4520-94cd-24a808afa0e1
+
+	measure 'Title Revenue by Country' = "Revenue (USD) by Country, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: f2dfae88-6e82-4ba8-a515-381a0286af48
+
+	measure 'Title Units by Country' = "Units Sold by Year and Country, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 503d8854-aed9-412d-9e30-9e54a5cf2cb8
+
+	measure 'Title Discount by Country' = "Average Discount by Year and Country, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 06c8531b-4b92-485d-9a6a-5f2253d654e6
+
+	measure 'Avg Revenue per City' = AVERAGEX ( VALUES ( Sales[City] ), [Revenue (USD)] )
+		formatString: "$"#,0
+		displayFolder: Reference Lines
+		lineageTag: a5bb3e4a-0b20-4cf7-8435-4db83f941b77
+
+	measure 'Avg Monthly Revenue' = AVERAGEX ( VALUES ( Sales[MONTH] ), [Revenue (USD)] )
+		formatString: "$"#,0
+		displayFolder: Reference Lines
+		lineageTag: 3cd4eaa3-72a4-46ae-bb31-f53b79bd742b
+
+	measure 'Selected Metric' = SWITCH ( SELECTEDVALUE ( Metric[Metric Order], 0 ), 1, "Units Sold", 2, "Gross Margin", "Revenue" )
+		displayFolder: Metric Switcher
+		lineageTag: 21a4a5a5-e55c-4c30-a4ba-348dcf24d229
+
+	measure 'Selected Metric Value' = SWITCH ( [Selected Metric], "Units Sold", [TotalQuantity], "Gross Margin", [Gross Margin %], [Revenue (USD)] )
+		displayFolder: Metric Switcher
+		lineageTag: efed2cba-897e-447b-a037-db96ea49b986
+
+	measure 'Avg Monthly Selected Metric' = AVERAGEX ( VALUES ( Sales[MONTH] ), [Selected Metric Value] )
+		displayFolder: Metric Switcher
+		lineageTag: b3d15c34-5253-4b46-8da1-2168c6f034c4
+
+	measure 'Title Metric by Country' = [Selected Metric] & " by Country, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 5977759d-ae06-4454-935c-63e5f026ec50
+
+	measure 'Title Metric Seasonality' = "Monthly " & [Selected Metric] & " by Product, " & [Year Label]
+		displayFolder: Report Titles
+		lineageTag: 37b2feca-9c32-4d63-8c01-1925a5740463
+
+	measure 'Selected City' = SELECTEDVALUE ( Sales[City], "All cities" )
+		displayFolder: Drill-through
+		lineageTag: 71718029-7965-4007-98d3-da8cfa9c9f50
+
+	measure 'Selected Product' = SELECTEDVALUE ( Sales[ProductDescr], "All products" )
+		displayFolder: Drill-through
+		lineageTag: 9abb54f2-3519-4ba3-8eea-1c2c2ed141ba
+
+	measure 'Revenue Share' = DIVIDE ( [Revenue (USD)], CALCULATE ( [Revenue (USD)], ALL ( Sales ) ) )
+		formatString: 0.0%
+		displayFolder: Drill-through
+		lineageTag: 6250b1aa-24ac-4aaf-bba9-dcd5db81023a
+
+	measure 'Avg Price (USD)' = DIVIDE ( [Revenue (USD)], [TotalQuantity] )
+		formatString: "$"#,0
+		displayFolder: Drill-through
+		lineageTag: 26f09925-32c2-4b42-8219-b2cafcae9e94
+
+	measure 'Revenue Bar (City)' =
+			VAR _v = [Revenue (USD)]
+			VAR _max = MAXX ( ALLSELECTED ( Sales[City] ), [Revenue (USD)] )
+			VAR _w = 150
+			VAR _len = IF ( _max = 0, 0, ROUND ( DIVIDE ( _v, _max ) * _w, 0 ) )
+			RETURN
+			    IF (
+			        ISINSCOPE ( Sales[City] ) && NOT ISBLANK ( _v ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='" & _w & "' height='22'>"
+			            & "<rect x='0' y='5' width='" & _w & "' height='12' rx='6' fill='%23E9DDFB'/>"
+			            & "<rect x='0' y='5' width='" & _len & "' height='12' rx='6' fill='%237031C5'/>"
+			            & "</svg>"
+			    )
+		displayFolder: Table Bars
+		lineageTag: 866c9dd4-c812-42e0-80e2-f87ce6513ecb
+		dataCategory: ImageUrl
+
+	measure 'Revenue Bar (Product)' =
+			VAR _v = [Revenue (USD)]
+			VAR _max = MAXX ( ALLSELECTED ( Sales[ProductDescr] ), [Revenue (USD)] )
+			VAR _w = 150
+			VAR _len = IF ( _max = 0, 0, ROUND ( DIVIDE ( _v, _max ) * _w, 0 ) )
+			RETURN
+			    IF (
+			        ISINSCOPE ( Sales[ProductDescr] ) && NOT ISBLANK ( _v ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='" & _w & "' height='22'>"
+			            & "<rect x='0' y='5' width='" & _w & "' height='12' rx='6' fill='%23E9DDFB'/>"
+			            & "<rect x='0' y='5' width='" & _len & "' height='12' rx='6' fill='%237031C5'/>"
+			            & "</svg>"
+			    )
+		displayFolder: Table Bars
+		lineageTag: 1c1e273b-a3f8-4fad-8b42-2ab87cb6a7d1
+		dataCategory: ImageUrl
+
+	measure 'Margin Bar (City)' =
+			VAR _m = [Gross Margin %]
+			VAR _w = 100
+			VAR _len = ROUND ( MIN ( MAX ( _m, 0 ), 1 ) * _w, 0 )
+			RETURN
+			    IF (
+			        ISINSCOPE ( Sales[City] ) && NOT ISBLANK ( _m ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='22'>"
+			            & "<rect x='0' y='5' width='" & _w & "' height='12' rx='6' fill='%23E9DDFB'/>"
+			            & "<rect x='0' y='5' width='" & _len & "' height='12' rx='6' fill='%23EC5A96'/>"
+			            & "<text x='" & ( _w + 6 ) & "' y='16' font-family='Segoe UI' font-size='11' font-weight='bold' fill='%232D2A3A'>" & FORMAT ( _m * 100, "0.0" ) & "%25</text>"
+			            & "</svg>"
+			    )
+		displayFolder: Table Bars
+		lineageTag: 4e7aab7f-4e0b-44f7-ad72-65b93794aafb
+		dataCategory: ImageUrl
+
+	measure 'Margin Bar (Product)' =
+			VAR _m = [Gross Margin %]
+			VAR _w = 100
+			VAR _len = ROUND ( MIN ( MAX ( _m, 0 ), 1 ) * _w, 0 )
+			RETURN
+			    IF (
+			        ISINSCOPE ( Sales[ProductDescr] ) && NOT ISBLANK ( _m ),
+			        "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='150' height='22'>"
+			            & "<rect x='0' y='5' width='" & _w & "' height='12' rx='6' fill='%23E9DDFB'/>"
+			            & "<rect x='0' y='5' width='" & _len & "' height='12' rx='6' fill='%23EC5A96'/>"
+			            & "<text x='" & ( _w + 6 ) & "' y='16' font-family='Segoe UI' font-size='11' font-weight='bold' fill='%232D2A3A'>" & FORMAT ( _m * 100, "0.0" ) & "%25</text>"
+			            & "</svg>"
+			    )
+		displayFolder: Table Bars
+		lineageTag: ad7d4870-0793-4aa3-a1f7-f78d39286009
+		dataCategory: ImageUrl
+
+	measure 'Off-road Share of Bikes' = DIVIDE ( CALCULATE ( [TotalQuantity], Sales[Product Category] = "ORB" ), CALCULATE ( [TotalQuantity], Sales[Product Category] <> "ACC" ) )
+		formatString: 0.0%
+		displayFolder: Assessment B3
+		lineageTag: e010c222-2ca5-456e-bd08-46d94fea1fbb
+
+	measure 'Avg City Off-road Share' = AVERAGEX ( FILTER ( ALL ( Sales[City] ), CALCULATE ( [TotalQuantity], Sales[Product Category] <> "ACC" ) > 0 ), [Off-road Share of Bikes] )
+		formatString: 0.0%
+		displayFolder: Assessment B3
+		lineageTag: 2736f4e4-6ece-4df9-94e3-2cd8c211e278
+
+	column YEAR
+		dataType: int64
+		formatString: 0
+		lineageTag: c4ff8009-afcc-42f8-b872-68af5a829d02
+		summarizeBy: sum
+		sourceColumn: YEAR
+
+		annotation SummarizationSetBy = Automatic
+
+	column MONTH
+		dataType: int64
+		formatString: 0
+		lineageTag: 657775f8-5bd9-45db-8859-fccb54937a4c
+		summarizeBy: sum
+		sourceColumn: MONTH
+
+		annotation SummarizationSetBy = Automatic
+
+	column DAY
+		dataType: int64
+		formatString: 0
+		lineageTag: 6d348c85-1834-4317-bc34-791501bbb4e4
+		summarizeBy: sum
+		sourceColumn: DAY
+
+		annotation SummarizationSetBy = Automatic
+
+	column Customer
+		dataType: int64
+		formatString: 0
+		lineageTag: ee14641d-9a6b-4e31-bd36-5c2fc0ee1c49
+		summarizeBy: sum
+		sourceColumn: Customer
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerDescr
+		dataType: string
+		lineageTag: 7039f0bf-97e2-43e0-bc98-b46bf27f2def
+		summarizeBy: none
+		sourceColumn: CustomerDescr
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		lineageTag: 3aba6c4b-6055-42c3-bb12-7a12e27443fc
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Salesorg
+		dataType: string
+		lineageTag: d0c2aa61-f763-4058-94c4-0d2222753fe4
+		summarizeBy: none
+		sourceColumn: Salesorg
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		lineageTag: 9c472570-5e6a-4464-ad89-56c95de599ea
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 91a898c3-6403-49c5-9eb6-d783c2086761
+		summarizeBy: sum
+		sourceColumn: OrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column OrderItem
+		dataType: int64
+		formatString: 0
+		lineageTag: f4e3e7cb-a957-41ca-a8e4-eff8bfd17019
+		summarizeBy: sum
+		sourceColumn: OrderItem
+
+		annotation SummarizationSetBy = Automatic
+
+	column Product
+		dataType: string
+		lineageTag: 9e1231fb-d8b6-41c8-8112-84a87e6b47f6
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductDescr
+		dataType: string
+		lineageTag: e4dfa236-539e-4ead-ae15-78a153eaf29e
+		summarizeBy: none
+		sourceColumn: ProductDescr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Category'
+		dataType: string
+		lineageTag: bb73862f-fd3f-44d0-9775-f74bb76e223d
+		summarizeBy: none
+		sourceColumn: Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Division
+		dataType: string
+		lineageTag: a5d1f809-643e-4360-bc05-cbbd63efb87b
+		summarizeBy: none
+		sourceColumn: Division
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c89adec-8e0d-4e49-99b9-01bc5e6cd6c7
+		summarizeBy: sum
+		sourceColumn: SalesQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitOfMeasure
+		dataType: string
+		lineageTag: da9de11b-b326-4022-bac9-f9ba80a6abeb
+		summarizeBy: none
+		sourceColumn: UnitOfMeasure
+
+		annotation SummarizationSetBy = Automatic
+
+	column Revenue
+		dataType: double
+		lineageTag: b96d2a3a-7761-409a-91aa-760b00f3992b
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Currency
+		dataType: string
+		lineageTag: e9bc84ab-2e53-418c-bf4f-0b37070df419
+		summarizeBy: none
+		sourceColumn: Currency
+
+		annotation SummarizationSetBy = Automatic
+
+	column Discount
+		dataType: double
+		lineageTag: a46b3e14-77b9-4368-8325-30baaca41fd4
+		summarizeBy: sum
+		sourceColumn: Discount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CostOfGoodsManufactured
+		dataType: double
+		lineageTag: be75a603-6ce7-4fb6-bf92-0c88723cf77e
+		summarizeBy: none
+		sourceColumn: CostOfGoodsManufactured
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Revenue USD'
+		dataType: double
+		lineageTag: d925b153-7fe7-4eaf-8561-50910a61dccc
+		summarizeBy: sum
+		sourceColumn: Revenue USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Discount USD'
+		dataType: double
+		lineageTag: 1c63bb5b-0c8a-449f-b664-c5b11713cdf1
+		summarizeBy: sum
+		sourceColumn: Discount USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cogm USD'
+		dataType: double
+		lineageTag: abdd15a2-4865-4a27-b998-b9259d6701bf
+		summarizeBy: sum
+		sourceColumn: Cogm USD
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Date = DATE(Sales[YEAR],Sales[MONTH],Sales[DAY])
+		formatString: General Date
+		lineageTag: c73d9360-2428-4147-b304-81ed76e636e6
+		summarizeBy: none
+
+		variation Variation
+			isDefault
+			relationship: 7a2ad431-7e09-4877-926a-4b4b342bcf67
+			defaultHierarchy: LocalDateTable_63a2d665-7cad-44c0-ae2f-71aefae19017.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\hp\Data Science and AI\Copy of Palmpay Test 2.xlsx"), null, true),
+				    Sales_Sheet = Source{[Item="Sales",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Sales_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"YEAR", Int64.Type}, {"MONTH", Int64.Type}, {"DAY", Int64.Type}, {"Customer", Int64.Type}, {"CustomerDescr", type text}, {"City", type text}, {"Salesorg", type text}, {"Country", type text}, {"OrderNumber", Int64.Type}, {"OrderItem", Int64.Type}, {"Product", type text}, {"ProductDescr", type text}, {"Product Category", type text}, {"Division", type text}, {"SalesQuantity", Int64.Type}, {"UnitOfMeasure", type text}, {"Revenue", type number}, {"Currency", type text}, {"Discount", type number}, {"CostOfGoodsManufactured", type number}, {"Revenue USD", type number}, {"Discount USD", type number}, {"Cogm USD", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

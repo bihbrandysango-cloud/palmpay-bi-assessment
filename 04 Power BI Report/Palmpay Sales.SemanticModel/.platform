@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Palmpay Sales"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e840a5e5-2508-4d66-9163-43772eacea9a"
+  }
+}

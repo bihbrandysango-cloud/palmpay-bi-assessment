@@ -1,0 +1,45 @@
+table DateTable
+	lineageTag: c29de577-a3cb-4bcf-bf0c-21f68ce03422
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: General Date
+		lineageTag: 05d4e54c-d5ea-450a-b589-b7c6a894374b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year = YEAR([Date])
+		dataType: int64
+		formatString: 0
+		lineageTag: d27d40ac-b499-4797-9d22-79733b95533f
+		summarizeBy: none
+
+	column MonthNo = MONTH([Date])
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 948d985c-d0f5-484c-aaea-77868e671f63
+		summarizeBy: none
+
+	column Month = FORMAT([Date], "MMM")
+		dataType: string
+		lineageTag: 59ebe7b3-81a6-4443-bf33-3c2ad56e8ca5
+		summarizeBy: none
+		sortByColumn: MonthNo
+
+	column 'Month Start' = DATE ( YEAR ( [Date] ), MONTH ( [Date] ), 1 )
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: 4282dd8a-2ba1-401b-870d-cbd018f53692
+		summarizeBy: none
+
+	partition DateTable = calculated
+		mode: import
+		source = CALENDAR(DATE(MIN(Sales[YEAR]), 1, 1), DATE(MAX(Sales[YEAR]), 12, 31))
+
+	annotation PBI_Id = ed4665e7501f4ae89921a70ae7410a84
+
