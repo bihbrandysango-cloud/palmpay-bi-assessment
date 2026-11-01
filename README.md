@@ -73,7 +73,7 @@ Click any image to view full size.
 
 ### 2. Executive overview
 
-*Revenue, gross profit, margin and units on one page. Year buttons filter every visual, and a monthly revenue line, two donuts and a category-by-year table sit alongside.*
+*Revenue, gross profit, margin and units on one page. Year buttons filter every visual. A navigation rail on the left links to every page of the report and highlights the page you are on.*
 
 ![Executive overview](docs/screenshots/02-executive-overview.jpg)
 
