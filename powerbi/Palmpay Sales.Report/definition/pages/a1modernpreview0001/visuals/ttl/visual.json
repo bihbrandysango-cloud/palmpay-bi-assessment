@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "a1hdr",
+  "name": "ttl",
   "position": {
-    "x": 0,
-    "y": 0,
-    "z": 1000,
+    "x": 128,
+    "y": 10,
+    "z": 930,
     "height": 72,
-    "width": 1280,
-    "tabOrder": 1000
+    "width": 560,
+    "tabOrder": 930
   },
   "visual": {
     "visualType": "textbox",
@@ -19,11 +19,11 @@
               {
                 "textRuns": [
                   {
-                    "value": "Palmpay Sales Performance",
+                    "value": "Executive Overview",
                     "textStyle": {
-                      "fontSize": "22pt",
+                      "fontSize": "24pt",
                       "fontWeight": "bold",
-                      "color": "#FFFFFF"
+                      "color": "#3B1A6E"
                     }
                   }
                 ]
@@ -34,7 +34,7 @@
                     "value": "Revenue, profit, units sold and city performance, 2007 to 2011",
                     "textStyle": {
                       "fontSize": "11pt",
-                      "color": "#E9DDFB"
+                      "color": "#6B6580"
                     }
                   }
                 ]
@@ -45,31 +45,47 @@
       ]
     },
     "visualContainerObjects": {
+      "padding": [
+        {
+          "properties": {
+            "left": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            },
+            "top": {
+              "expr": {
+                "Literal": {
+                  "Value": "2D"
+                }
+              }
+            },
+            "right": {
+              "expr": {
+                "Literal": {
+                  "Value": "6D"
+                }
+              }
+            },
+            "bottom": {
+              "expr": {
+                "Literal": {
+                  "Value": "4D"
+                }
+              }
+            }
+          }
+        }
+      ],
       "background": [
         {
           "properties": {
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#3B1A6E'"
-                    }
-                  }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
+                  "Value": "false"
                 }
               }
             }
@@ -96,26 +112,6 @@
               "expr": {
                 "Literal": {
                   "Value": "false"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "padding": [
-        {
-          "properties": {
-            "left": {
-              "expr": {
-                "Literal": {
-                  "Value": "84D"
-                }
-              }
-            },
-            "top": {
-              "expr": {
-                "Literal": {
-                  "Value": "8D"
                 }
               }
             }

@@ -8,10 +8,11 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["Sales"]
+annotation PBI_QueryOrder = ["DataFile","Sales"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
+ref expression DataFile
 ref table Sales
 ref table DateTableTemplate_a6bc68a6-0970-47d3-8f9a-27efdcdc491c
 ref table LocalDateTable_63a2d665-7cad-44c0-ae2f-71aefae19017

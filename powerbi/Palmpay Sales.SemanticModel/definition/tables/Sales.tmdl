@@ -597,7 +597,7 @@ table Sales
 		mode: import
 		source =
 				let
-				    Source = Excel.Workbook(File.Contents("C:\Users\hp\Data Science and AI\Copy of Palmpay Test 2.xlsx"), null, true),
+				    Source = Excel.Workbook(File.Contents(DataFile), null, true),
 				    Sales_Sheet = Source{[Item="Sales",Kind="Sheet"]}[Data],
 				    #"Promoted Headers" = Table.PromoteHeaders(Sales_Sheet, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"YEAR", Int64.Type}, {"MONTH", Int64.Type}, {"DAY", Int64.Type}, {"Customer", Int64.Type}, {"CustomerDescr", type text}, {"City", type text}, {"Salesorg", type text}, {"Country", type text}, {"OrderNumber", Int64.Type}, {"OrderItem", Int64.Type}, {"Product", type text}, {"ProductDescr", type text}, {"Product Category", type text}, {"Division", type text}, {"SalesQuantity", Int64.Type}, {"UnitOfMeasure", type text}, {"Revenue", type number}, {"Currency", type text}, {"Discount", type number}, {"CostOfGoodsManufactured", type number}, {"Revenue USD", type number}, {"Discount USD", type number}, {"Cogm USD", type number}})

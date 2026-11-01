@@ -1,19 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "a1playaxis",
+  "name": "donutCat",
   "position": {
-    "x": 640,
-    "y": 312,
-    "z": 4000,
-    "height": 56,
-    "width": 620,
-    "tabOrder": 4000
+    "x": 404,
+    "y": 398,
+    "z": 1201,
+    "height": 308,
+    "width": 262,
+    "tabOrder": 1201
   },
   "visual": {
-    "visualType": "PBI_CV_16948668_E17D_454B_8664_2F2C470EA8C1",
+    "visualType": "donutChart",
     "query": {
       "queryState": {
-        "category": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -23,32 +23,84 @@
                       "Entity": "Sales"
                     }
                   },
-                  "Property": "YEAR"
+                  "Property": "Product Category"
                 }
               },
-              "queryRef": "Sales.YEAR",
-              "nativeQueryRef": "Year",
-              "displayName": "Year"
+              "queryRef": "Sales.Product Category",
+              "nativeQueryRef": "Product Category",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "Revenue (USD)"
+                }
+              },
+              "queryRef": "Sales.Revenue (USD)",
+              "nativeQueryRef": "Revenue (USD)"
             }
           ]
         }
       }
     },
     "objects": {
-      "transitionSettings": [
+      "legend": [
         {
           "properties": {
-            "loop": {
+            "show": {
               "expr": {
                 "Literal": {
                   "Value": "true"
                 }
               }
             },
-            "timeInterval": {
+            "position": {
               "expr": {
                 "Literal": {
-                  "Value": "1800D"
+                  "Value": "'Bottom'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "labels": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "labelStyle": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Percent of total'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "9D"
                 }
               }
             }
@@ -172,7 +224,39 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Revenue by product category'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "12D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2D2A3A'"
+                    }
+                  }
                 }
               }
             }

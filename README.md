@@ -73,7 +73,7 @@ Click any image to view full size.
 
 ### 2. Executive overview
 
-*The five years on one page, with a Play Axis that steps through the years.*
+*Revenue, gross profit, margin and units on one page. Year buttons filter every visual, and a monthly revenue line, two donuts and a category-by-year table sit alongside.*
 
 ![Executive overview](docs/screenshots/02-executive-overview.jpg)
 
@@ -179,7 +179,8 @@ All figures in the report use the US dollar columns, because the sheet records s
 1. Clone or download this repository.
 2. Open `powerbi/Palmpay Sales.pbip` in Power BI Desktop (free from Microsoft).
 3. The Play Axis visual comes from AppSource and installs the first time Power BI asks for it.
-4. The model still points to the original file path. Choose Transform data and set the Excel source to your own copy of the assessment workbook before refreshing.
+4. The model reads its sales from a `DataFile` setting, because the assessment workbook is not in this repository. Choose Home, Transform data, Edit parameters, and set `DataFile` to the full path of your copy of the workbook (it needs a sheet called `Sales`). Then choose Refresh.
+5. If every visual is blank, the model has no data yet. This is almost always a wrong `DataFile` path.
 
 ---
 

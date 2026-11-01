@@ -1,19 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
-  "name": "a1scatter",
+  "name": "matCat",
   "position": {
-    "x": 640,
-    "y": 380,
-    "z": 5000,
-    "height": 326,
-    "width": 620,
-    "tabOrder": 5000
+    "x": 680,
+    "y": 398,
+    "z": 1202,
+    "height": 308,
+    "width": 586,
+    "tabOrder": 1202
   },
   "visual": {
-    "visualType": "scatterChart",
+    "visualType": "pivotTable",
     "query": {
       "queryState": {
-        "Category": {
+        "Rows": {
           "projections": [
             {
               "field": {
@@ -23,16 +23,37 @@
                       "Entity": "Sales"
                     }
                   },
-                  "Property": "City"
+                  "Property": "Product Category"
                 }
               },
-              "queryRef": "Sales.City",
-              "nativeQueryRef": "City",
+              "queryRef": "Sales.Product Category",
+              "nativeQueryRef": "Category",
+              "displayName": "Category",
               "active": true
             }
           ]
         },
-        "X": {
+        "Columns": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Sales"
+                    }
+                  },
+                  "Property": "YEAR"
+                }
+              },
+              "queryRef": "Sales.YEAR",
+              "nativeQueryRef": "Year",
+              "displayName": "Year",
+              "active": true
+            }
+          ]
+        },
+        "Values": {
           "projections": [
             {
               "field": {
@@ -46,43 +67,40 @@
                 }
               },
               "queryRef": "Sales.Revenue (USD)",
-              "nativeQueryRef": "Revenue",
-              "active": true,
-              "displayName": "Revenue"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Sales"
-                    }
-                  },
-                  "Property": "Gross Margin %"
-                }
-              },
-              "queryRef": "Sales.Gross Margin %",
-              "nativeQueryRef": "Gross Margin",
-              "displayName": "Gross Margin"
+              "nativeQueryRef": "Revenue (USD)"
             }
           ]
         }
       }
     },
     "objects": {
-      "dataPoint": [
+      "columnHeaders": [
         {
           "properties": {
-            "fill": {
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "10D"
+                }
+              }
+            },
+            "fontColor": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#7031C5'"
+                      "Value": "'#FFFFFF'"
+                    }
+                  }
+                }
+              }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#3B1A6E'"
                     }
                   }
                 }
@@ -91,187 +109,64 @@
           }
         }
       ],
-      "y1AxisReferenceLine": [
+      "rowHeaders": [
         {
           "properties": {
-            "show": {
+            "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "10D"
                 }
               }
             },
-            "value": {
-              "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Sales"
-                    }
-                  },
-                  "Property": "Gross Margin %"
-                }
-              }
-            },
-            "displayName": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Company margin'"
-                }
-              }
-            },
-            "lineColor": {
+            "fontColor": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#EC5A96'"
+                      "Value": "'#2D2A3A'"
                     }
                   }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "style": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
-                }
-              }
-            },
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'front'"
-                }
-              }
-            },
-            "dataLabelShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "dataLabelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#EC5A96'"
-                    }
-                  }
-                }
-              }
-            },
-            "dataLabelText": {
-              "expr": {
-                "Literal": {
-                  "Value": "'ValueAndName'"
                 }
               }
             }
-          },
-          "selector": {
-            "id": "1"
           }
         }
       ],
-      "xAxisReferenceLine": [
+      "values": [
         {
           "properties": {
-            "show": {
+            "fontSize": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "10D"
                 }
               }
             },
-            "value": {
-              "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Sales"
-                    }
-                  },
-                  "Property": "Avg Revenue per City"
-                }
-              }
-            },
-            "displayName": {
-              "expr": {
-                "Literal": {
-                  "Value": "'Average city revenue'"
-                }
-              }
-            },
-            "lineColor": {
+            "fontColorPrimary": {
               "solid": {
                 "color": {
                   "expr": {
                     "Literal": {
-                      "Value": "'#8A84A3'"
+                      "Value": "'#2D2A3A'"
                     }
                   }
-                }
-              }
-            },
-            "transparency": {
-              "expr": {
-                "Literal": {
-                  "Value": "0D"
-                }
-              }
-            },
-            "style": {
-              "expr": {
-                "Literal": {
-                  "Value": "'dashed'"
-                }
-              }
-            },
-            "position": {
-              "expr": {
-                "Literal": {
-                  "Value": "'front'"
-                }
-              }
-            },
-            "dataLabelShow": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            },
-            "dataLabelColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#8A84A3'"
-                    }
-                  }
-                }
-              }
-            },
-            "dataLabelText": {
-              "expr": {
-                "Literal": {
-                  "Value": "'ValueAndName'"
                 }
               }
             }
-          },
-          "selector": {
-            "id": "1"
+          }
+        }
+      ],
+      "subTotals": [
+        {
+          "properties": {
+            "columnSubtotals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
           }
         }
       ]
@@ -398,13 +293,8 @@
             },
             "text": {
               "expr": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Sales"
-                    }
-                  },
-                  "Property": "Title Scatter"
+                "Literal": {
+                  "Value": "'Revenue by category and year'"
                 }
               }
             },
