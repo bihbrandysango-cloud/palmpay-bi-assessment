@@ -76,6 +76,11 @@
           "name": "palmpay_logo.png",
           "path": "palmpay_logo.png",
           "type": "Image"
+        },
+        {
+          "name": "palmpay_side.png",
+          "path": "palmpay_side.png",
+          "type": "Image"
         }
       ]
     }

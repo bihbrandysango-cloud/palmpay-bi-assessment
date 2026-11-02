@@ -1,0 +1,611 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/bookmark/2.1.0/schema.json",
+  "displayName": "Tour: step 3",
+  "name": "tour_3",
+  "options": {
+    "suppressData": true
+  },
+  "explorationState": {
+    "version": "1.3",
+    "activeSection": "a1modernpreview0001",
+    "sections": {
+      "a1modernpreview0001": {
+        "visualContainers": {
+          "brandlogo": {
+            "singleVisual": {
+              "visualType": "image"
+            }
+          },
+          "donutCat": {
+            "singleVisual": {
+              "visualType": "donutChart"
+            }
+          },
+          "donutCountry": {
+            "singleVisual": {
+              "visualType": "donutChart"
+            }
+          },
+          "kpiMargin": {
+            "singleVisual": {
+              "visualType": "card"
+            }
+          },
+          "kpiProfit": {
+            "singleVisual": {
+              "visualType": "card"
+            }
+          },
+          "kpiRev": {
+            "singleVisual": {
+              "visualType": "card"
+            }
+          },
+          "kpiUnits": {
+            "singleVisual": {
+              "visualType": "card"
+            }
+          },
+          "lineRev": {
+            "singleVisual": {
+              "visualType": "lineChart"
+            }
+          },
+          "matCat": {
+            "singleVisual": {
+              "visualType": "pivotTable"
+            }
+          },
+          "nav0": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav1": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav2": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav3": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav4": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav5": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav6": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav7": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav8": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "nav9": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "navlbl0": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl1": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl2": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl4": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl5": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl6": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl7": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl8": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "navlbl9": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "rail": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "sidePanel": {
+            "singleVisual": {
+              "visualType": "image"
+            }
+          },
+          "tourBack2Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourBack2Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourBack3Btn": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "tourBack3Lbl": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourBack4Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourBack4Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourBack5Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourBack5Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourCard1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourCard2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourCard3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourCard4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourCard5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose1Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose1Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose2Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose2Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose3Btn": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "tourClose3Lbl": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourClose4Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourClose4Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimBottom1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimBottom2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimBottom3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourDimBottom4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimBottom5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimLeft1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimLeft2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimLeft3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourDimLeft4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimLeft5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimRight1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimRight2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimRight3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourDimRight4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimRight5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimTop1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimTop2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimTop3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourDimTop4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourDimTop5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFinish5Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFinish5Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFrame1": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFrame2": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFrame3": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourFrame4": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourFrame5": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext1Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext1Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext2Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext2Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext3Btn": {
+            "singleVisual": {
+              "visualType": "actionButton"
+            }
+          },
+          "tourNext3Lbl": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "tourNext4Btn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourNext4Lbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourStartBtn": {
+            "singleVisual": {
+              "visualType": "actionButton",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "tourStartLbl": {
+            "singleVisual": {
+              "visualType": "textbox",
+              "display": {
+                "mode": "hidden"
+              }
+            }
+          },
+          "ttl": {
+            "singleVisual": {
+              "visualType": "textbox"
+            }
+          },
+          "yrslicer": {
+            "singleVisual": {
+              "visualType": "slicer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
