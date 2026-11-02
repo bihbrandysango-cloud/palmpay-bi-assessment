@@ -8,6 +8,7 @@ A Power BI report on five years of sales (2007 to 2011) for a bicycle company in
 
 ## Quick links
 
+- 🌐 [Live web dashboard](https://bihbrandysango-cloud.github.io/projects/palmpay/), the HTML version with a guided tour
 - 📊 [Power BI project](powerbi/Palmpay%20Sales.pbip) (open in Power BI Desktop)
 - 📄 [Strategic brief (PDF)](docs/Palmpay-Strategic-Brief.pdf), which renders inline on GitHub
 - 🎞️ [Presentation (PowerPoint)](docs/Palmpay-Presentation.pptx) with the speech in the slide notes

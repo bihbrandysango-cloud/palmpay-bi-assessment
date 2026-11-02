@@ -28,8 +28,8 @@
               },
               "queryRef": "Sales.YEAR",
               "nativeQueryRef": "Year",
-              "displayName": "Year",
-              "active": true
+              "active": true,
+              "displayName": "Year"
             }
           ]
         }
@@ -108,17 +108,6 @@
                   "expr": {
                     "Literal": {
                       "Value": "'#F1ECFB'"
-                    }
-                  }
-                }
-              }
-            },
-            "outline": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#E4DDF2'"
                     }
                   }
                 }

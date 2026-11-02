@@ -3,9 +3,9 @@
   "name": "navlbl9",
   "position": {
     "x": 22,
-    "y": 628,
+    "y": 484,
     "z": 929,
-    "height": 50,
+    "height": 36,
     "width": 84,
     "tabOrder": 929
   },
@@ -48,7 +48,7 @@
             "top": {
               "expr": {
                 "Literal": {
-                  "Value": "15D"
+                  "Value": "9D"
                 }
               }
             },
@@ -62,7 +62,7 @@
             "bottom": {
               "expr": {
                 "Literal": {
-                  "Value": "4D"
+                  "Value": "2D"
                 }
               }
             }
